@@ -5,4 +5,6 @@
     <color name="colorPrimarySecondary">#0B1A26</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#FFFFFF</color>
+    <color name="red">#e53935</color>
+    <color name="green">#00c853</color>
 </resources>
