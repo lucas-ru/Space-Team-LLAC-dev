@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Space Team LLAC dev</string>
-    <string name="register_button">Register an astronaute profil </string>
-    <string name="launch_button">Launch</string>
+    <string name="register_button">REGISTER AN ANSTRONAUTE PROFILE</string>
+    <string name="launch_button">LAUNCH</string>
+    <string name="returnbutton">returnbutton</string>
+    <string name="waiting_room">Waiting Room</string>
+    <string name="astronautxml">astrounautXML</string>
+    <string name="enter_in_a_room_name_or_create_a_game">Enter a room name or create a game</string>
+    <string name="socket">socket</string>
+    <string name="no_room_joined">no room joined</string>
+    <string name="login_to_play">Login to play</string>
 </resources>
