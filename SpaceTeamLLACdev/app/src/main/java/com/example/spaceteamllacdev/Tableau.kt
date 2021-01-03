@@ -4,22 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_waiting_room.*
+import kotlinx.android.synthetic.main.activity_tableau.*
 
-class WaitingRoom : AppCompatActivity() {
+class Tableau : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_waiting_room)
+        setContentView(R.layout.activity_tableau)
 
-        button4.setOnClickListener{ buttonToTableau(layoutInflater.inflate(R.layout.activity_waiting_room,null)) }
-
+        btnEnd.setOnClickListener{ buttonToWinner(layoutInflater.inflate(R.layout.activity_tableau,null)) }
     }
 
-    fun buttonToTableau(view: View){
+    fun buttonToWinner(view: View){
         //Intent pour ouvrir l'activité suivante
-        val intent = Intent(this, Tableau::class.java)
+        val intent = Intent(this, Winner::class.java)
         //Lancement de l'intent (changement d'écran)
         startActivity(intent)
     }

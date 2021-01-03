@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WaitingRoom"></activity>
+        <activity android:name=".Tableau"></activity>
+        <activity android:name=".Looser"></activity>
+        <activity android:name=".Winner"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

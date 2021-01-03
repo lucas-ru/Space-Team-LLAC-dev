@@ -11,4 +11,5 @@
     <string name="socket">socket</string>
     <string name="no_room_joined">no room joined</string>
     <string name="login_to_play">Login to play</string>
+    <string name="game">Game</string>
 </resources>
