@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tableau"
+    android:background="@drawable/space_background">
+
+    <TextView
+        android:id="@+id/txtGalaxy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="You are currently traveling in the galaxy 1"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Il y a trop de gaz!"
+        android:textColor="#FFFFFF"
+        android:textSize="75px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtGalaxy" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="130dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/custom_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Téléporteur"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMission" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="130dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/custom_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="LE SENS DE LA VIE"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toEndOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/txtMission" />
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="130dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/custom_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="DEGAZER"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/switch1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="130dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/custom_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Hyper-propulseur"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/btn1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/btn1"
+        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+
+
+    <TextView
+        android:id="@+id/txtBg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/custom_button"
+        android:text="End"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/txtBg"
+        app:layout_constraintTop_toTopOf="@+id/txtBg" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
