@@ -1,0 +1,2 @@
+rootProject.name='Space Team LLAC dev'
+include ':app'
