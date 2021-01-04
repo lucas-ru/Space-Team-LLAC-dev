@@ -1,22 +1,22 @@
-package com.example.spaceteamllacdev
+package com.example.spaceteamllacdev.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_waiting_room.*
+import com.example.spaceteamllacdev.R
+import kotlinx.android.synthetic.main.activity_winner.*
 import timber.log.Timber
 
-class WaitingRoom : AppCompatActivity() {
+class Winner : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_waiting_room)
+        setContentView(R.layout.activity_winner)
         Timber.i("OnCreate called")
 
-        button4.setOnClickListener{ buttonToTableau(layoutInflater.inflate(R.layout.activity_waiting_room,null)) }
+        button3.setOnClickListener{ buttonToLooser(layoutInflater.inflate(R.layout.activity_winner,null)) }
+
     }
 
     override fun onStart() {
@@ -50,9 +50,9 @@ class WaitingRoom : AppCompatActivity() {
         Timber.i("onRestart Called")
     }
 
-    fun buttonToTableau(view: View){
+    fun buttonToLooser(view: View){
         //Intent pour ouvrir l'activité suivante
-        val intent = Intent(this, Tableau::class.java)
+        val intent = Intent(this, Looser::class.java)
         //Lancement de l'intent (changement d'écran)
         startActivity(intent)
     }

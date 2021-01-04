@@ -1,11 +1,10 @@
-package com.example.spaceteamllacdev
+package com.example.spaceteamllacdev.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_looser.*
-import kotlinx.android.synthetic.main.activity_winner.*
+import com.example.spaceteamllacdev.R
 import kotlinx.android.synthetic.main.activity_winner.button3
 import timber.log.Timber
 

@@ -1,20 +1,30 @@
-package com.example.spaceteamllacdev
+package com.example.spaceteamllacdev.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_winner.*
+import androidx.navigation.fragment.NavHostFragment
+import com.example.spaceteamllacdev.R
+import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
 
-class Winner : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_winner)
+        setContentView(R.layout.activity_login)
         Timber.i("OnCreate called")
 
-        button3.setOnClickListener{ buttonToLooser(layoutInflater.inflate(R.layout.activity_winner,null)) }
+        //val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        //val navController = navHostFragment.navController
+
+        //Bouton Login
+        button.setOnClickListener{ buttonToWaitingRoom(layoutInflater.inflate(R.layout.activity_login,null)) }
+
+
+
 
     }
 
@@ -49,9 +59,9 @@ class Winner : AppCompatActivity() {
         Timber.i("onRestart Called")
     }
 
-    fun buttonToLooser(view: View){
+    fun buttonToWaitingRoom(view: View){
         //Intent pour ouvrir l'activité suivante
-        val intent = Intent(this, Looser::class.java)
+        val intent = Intent(this, WaitingRoom::class.java)
         //Lancement de l'intent (changement d'écran)
         startActivity(intent)
     }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainActivity">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.spaceteamllacdev.Activities.MainActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" >
+        <action
+            android:id="@+id/action_mainActivity_to_waitingRoom2"
+            app:destination="@id/waitingRoom" />
+    </activity>
+    <activity
+        android:id="@+id/looser"
+        android:name="com.example.spaceteamllacdev.Activities.Looser"
+        android:label="activity_looser"
+        tools:layout="@layout/activity_looser" >
+        <action
+            android:id="@+id/action_looser_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </activity>
+    <activity
+        android:id="@+id/tableau"
+        android:name="com.example.spaceteamllacdev.Activities.Tableau"
+        android:label="activity_tableau"
+        tools:layout="@layout/activity_tableau" >
+        <action
+            android:id="@+id/action_tableau_to_winner"
+            app:destination="@id/winner" />
+    </activity>
+    <activity
+        android:id="@+id/waitingRoom"
+        android:name="com.example.spaceteamllacdev.Activities.WaitingRoom"
+        android:label="activity_waiting_room"
+        tools:layout="@layout/activity_waiting_room" >
+        <action
+            android:id="@+id/action_waitingRoom_to_tableau"
+            app:destination="@id/tableau" />
+    </activity>
+    <activity
+        android:id="@+id/winner"
+        android:name="com.example.spaceteamllacdev.Activities.Winner"
+        android:label="activity_winner"
+        tools:layout="@layout/activity_winner" >
+        <action
+            android:id="@+id/action_winner_to_looser"
+            app:destination="@id/looser" />
+    </activity>
+</navigation>

@@ -1,9 +1,10 @@
-package com.example.spaceteamllacdev
+package com.example.spaceteamllacdev.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.spaceteamllacdev.R
 import kotlinx.android.synthetic.main.activity_tableau.*
 import timber.log.Timber
 
