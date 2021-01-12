@@ -1,27 +1,18 @@
 package com.example.spaceteamllacdev.Activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spaceteamllacdev.R
-import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
-
+class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_login)
-        Timber.i("OnCreate called")
+        setContentView(R.layout.activity_game)
 
-
-        //Bouton Login
-        button.setOnClickListener{ buttonToWaitingRoom(layoutInflater.inflate(R.layout.activity_login,null)) }
-
+        Timber.i("onCreate Called")
 
     }
 
@@ -49,18 +40,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Timber.i("onDestroy Called")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Timber.i("onRestart Called")
-    }
-
-
-    fun buttonToWaitingRoom(view: View){
-        //Intent pour ouvrir l'activité suivante
-        val intent = Intent(this, WaitingRoom::class.java)
-        //Lancement de l'intent (changement d'écran)
-        startActivity(intent)
     }
 }

@@ -3,51 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/loginFragment">
 
     <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.spaceteamllacdev.Activities.MainActivity"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" >
+        android:id="@+id/gameActivity"
+        android:name="com.example.spaceteamllacdev.Activities.GameActivity"
+        android:label="activity_game"
+        tools:layout="@layout/activity_game" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.spaceteamllacdev.Fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_mainActivity_to_waitingRoom2"
-            app:destination="@id/waitingRoom" />
-    </activity>
-    <activity
-        android:id="@+id/looser"
-        android:name="com.example.spaceteamllacdev.Activities.Looser"
-        android:label="activity_looser"
-        tools:layout="@layout/activity_looser" >
+            android:id="@+id/action_loginFragment_to_waitingRoomFragment"
+            app:destination="@id/waitingRoomFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitingRoomFragment"
+        android:name="com.example.spaceteamllacdev.Fragments.WaitingRoomFragment"
+        android:label="fragment_waiting_room"
+        tools:layout="@layout/fragment_waiting_room" >
         <action
-            android:id="@+id/action_looser_to_mainActivity"
-            app:destination="@id/mainActivity" />
-    </activity>
-    <activity
-        android:id="@+id/tableau"
-        android:name="com.example.spaceteamllacdev.Activities.Tableau"
-        android:label="activity_tableau"
-        tools:layout="@layout/activity_tableau" >
+            android:id="@+id/action_waitingRoomFragment_to_tableauFragment"
+            app:destination="@id/tableauFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/tableauFragment"
+        android:name="com.example.spaceteamllacdev.Fragments.TableauFragment"
+        android:label="fragment_tableau"
+        tools:layout="@layout/fragment_tableau" >
         <action
-            android:id="@+id/action_tableau_to_winner"
-            app:destination="@id/winner" />
-    </activity>
-    <activity
-        android:id="@+id/waitingRoom"
-        android:name="com.example.spaceteamllacdev.Activities.WaitingRoom"
-        android:label="activity_waiting_room"
-        tools:layout="@layout/activity_waiting_room" >
+            android:id="@+id/action_tableauFragment_to_winnerFragment"
+            app:destination="@id/winnerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/winnerFragment"
+        android:name="com.example.spaceteamllacdev.Fragments.WinnerFragment"
+        android:label="fragment_winner"
+        tools:layout="@layout/fragment_winner" >
         <action
-            android:id="@+id/action_waitingRoom_to_tableau"
-            app:destination="@id/tableau" />
-    </activity>
-    <activity
-        android:id="@+id/winner"
-        android:name="com.example.spaceteamllacdev.Activities.Winner"
-        android:label="activity_winner"
-        tools:layout="@layout/activity_winner" >
+            android:id="@+id/action_winnerFragment_to_looserFragment"
+            app:destination="@id/looserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/looserFragment"
+        android:name="com.example.spaceteamllacdev.Fragments.LooserFragment"
+        android:label="fragment_looser"
+        tools:layout="@layout/fragment_looser" >
         <action
-            android:id="@+id/action_winner_to_looser"
-            app:destination="@id/looser" />
-    </activity>
+            android:id="@+id/action_looserFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
 </navigation>
