@@ -52,15 +52,15 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <TextView
-            android:id="@+id/textView5"
+        <EditText
+            android:id="@+id/editName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nom du joueur ( recycler view ou autre)"
+            android:text="Nom"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnLaunch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
