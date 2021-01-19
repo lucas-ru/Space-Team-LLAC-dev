@@ -55,12 +55,12 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        view.button.setOnClickListener { Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_waitingRoomFragment) }
+        view.btnLaunch.setOnClickListener {
+            Timber.i("nickname: " + view.editName.text)
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
+        }
 
         return view
-
-
     }
-
 }
 
