@@ -1,6 +1,10 @@
 package com.example.spaceteamllacdev.WebSocket
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.spaceteamllacdev.Models.EventGame
 import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
+import com.example.spaceteamllacdev.Models.UIElement
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
@@ -8,6 +12,8 @@ import okio.ByteString
 import timber.log.Timber
 
 class EchoWebSocketListener : WebSocketListener() {
+    val GameState = MutableLiveData<EventGame>()
+
     override fun onOpen(webSocket: WebSocket, response: Response) {
 
         println("Socket open")
@@ -16,9 +22,7 @@ class EchoWebSocketListener : WebSocketListener() {
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        //println("Receiving : $text")
-        val state = eventGameParser.fromJson(text)
-        println(state)
+        GameState.postValue(eventGameParser.fromJson(text))
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
