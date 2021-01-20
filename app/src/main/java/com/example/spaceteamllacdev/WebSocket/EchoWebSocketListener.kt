@@ -12,7 +12,9 @@ import okio.ByteString
 import timber.log.Timber
 
 class EchoWebSocketListener : WebSocketListener() {
-    val GameState = MutableLiveData<EventGame>()
+    val _gameState = MutableLiveData<EventGame>()
+    val gameState: LiveData<EventGame>
+        get() = _gameState
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
 
@@ -22,7 +24,7 @@ class EchoWebSocketListener : WebSocketListener() {
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        GameState.postValue(eventGameParser.fromJson(text))
+        _gameState.postValue(eventGameParser.fromJson(text))
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {

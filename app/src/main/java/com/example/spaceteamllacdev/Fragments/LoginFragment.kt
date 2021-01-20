@@ -5,19 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.spaceteamllacdev.GameViewModel
 import com.example.spaceteamllacdev.R
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import timber.log.Timber
 
 
 class LoginFragment : Fragment() {
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Timber.i("onCreate Called")
 
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
     }
 
     override fun onStart() {
@@ -57,6 +61,7 @@ class LoginFragment : Fragment() {
 
         view.btnLaunch.setOnClickListener {
             Timber.i("nickname: " + view.editName.text)
+            viewModel.onLaunch()
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
         }
 
