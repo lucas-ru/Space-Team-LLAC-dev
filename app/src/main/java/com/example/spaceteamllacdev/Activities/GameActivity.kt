@@ -60,14 +60,14 @@ class GameActivity : AppCompatActivity() {
 
     private fun start() {
 
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
-        val listener = EchoWebSocketListener()
-        val ws = client.newWebSocket(request, listener)
-
-
-        ws.send(eventGameParser.toJson(
-            EventGame.Ready(true)
-        ))
+//        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
+//        val listener = EchoWebSocketListener()
+//        val ws = client.newWebSocket(request, listener)
+//
+//
+//        ws.send(eventGameParser.toJson(
+//            EventGame.Ready(true)
+//        ))
     }
 
     /*private class EchoWebSocketListener : WebSocketListener() {

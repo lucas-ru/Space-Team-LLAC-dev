@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spaceteamllacdev.Models.*
+import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
 import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
 import com.example.spaceteamllacdev.WebSocket.SocketState
 import okhttp3.*
@@ -32,27 +33,20 @@ class GameViewModel : ViewModel() {
     fun getCurrentLevel(): LiveData<Int> = currentLevel
 
 
-    private var webSocket: WebSocket
+    private lateinit var webSocket: WebSocket
     private val listener = EchoWebSocketListener()
 
     init{
         currentLevel.value = 1
-
-        val client = OkHttpClient()
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC_1/1").build()
-        val ws = client.newWebSocket(request, listener)
-
-        webSocket = ws
-        println("on est dans le init")
     }
 
     fun onLaunch(){
-//        val client = OkHttpClient()
-//        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
-//        val ws = client.newWebSocket(request, listener)
-//
-//        webSocket = ws
-//        println("on est dans le onLaunch")
+        val client = OkHttpClient()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
+        val ws = client.newWebSocket(request, listener)
+
+        webSocket = ws
+        println("on est dans le onLaunch")
 
     }
 
@@ -66,7 +60,10 @@ class GameViewModel : ViewModel() {
 
 
     fun setUserReady(isReady: Boolean){
-        _isReady.value = isReady
+        println(webSocket)
+//        webSocket.send(eventGameParser.toJson(
+//                EventGame.Ready(true)
+//        ))
     }
 
 }

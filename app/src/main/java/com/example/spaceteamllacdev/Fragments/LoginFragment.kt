@@ -27,27 +27,27 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        Timber.i("onStart Called")
+        Timber.i("Login onStart Called")
     }
 
     override fun onResume() {
         super.onResume()
-        Timber.i("onResume Called")
+        Timber.i("Login onResume Called")
     }
 
     override fun onPause() {
         super.onPause()
-        Timber.i("onPause Called")
+        Timber.i("Login onPause Called")
     }
 
     override fun onStop() {
         super.onStop()
-        Timber.i("onStop Called")
+        Timber.i("Login onStop Called")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.i("onDestroy Called")
+        Timber.i("Login onDestroy Called")
     }
 
 
