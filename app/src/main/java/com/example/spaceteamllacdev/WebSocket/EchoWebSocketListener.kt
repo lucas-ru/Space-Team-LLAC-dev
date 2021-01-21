@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.spaceteamllacdev.Models.EventGame
 import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
 import com.example.spaceteamllacdev.Models.UIElement
-import okhttp3.Response
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
+import okhttp3.*
 import okio.ByteString
 import timber.log.Timber
 
@@ -15,7 +13,7 @@ class EchoWebSocketListener : WebSocketListener() {
     val _gameState = MutableLiveData<EventGame>()
     val gameState: LiveData<EventGame>
         get() = _gameState
-
+    private var webSocket: WebSocket? = null
 
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -44,6 +42,21 @@ class EchoWebSocketListener : WebSocketListener() {
 
     companion object {
         private const val NORMAL_CLOSURE_STATUS = 4000
+    }
+
+    fun OnLaunch(){
+        val client = OkHttpClient()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
+
+        webSocket = client.newWebSocket(request, this)
+        println("On se co oklm")
+    }
+
+    fun SendPlayerReady(){
+        println("Mtn on est pret NORMALEMENT")
+        webSocket?.send(eventGameParser.toJson(
+                EventGame.Ready(true)
+        ))
     }
 
 }

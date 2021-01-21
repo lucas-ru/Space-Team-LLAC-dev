@@ -32,23 +32,15 @@ class GameViewModel : ViewModel() {
 //    fun getSocketState(): LiveData<SocketState> = SocketState
     fun getCurrentLevel(): LiveData<Int> = currentLevel
 
+    val listener = EchoWebSocketListener()
 
-    private lateinit var webSocket: WebSocket
-    private val listener = EchoWebSocketListener()
 
     init{
         currentLevel.value = 1
     }
 
-    fun onLaunch(){
-        val client = OkHttpClient()
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
-        val ws = client.newWebSocket(request, listener)
+    fun onLaunch() = listener.OnLaunch()
 
-        webSocket = ws
-        println("on est dans le onLaunch")
-
-    }
 
     val getGameState: LiveData<EventGame> = listener.gameState
 
@@ -59,11 +51,6 @@ class GameViewModel : ViewModel() {
 //    }
 
 
-    fun setUserReady(isReady: Boolean){
-        println(webSocket)
-//        webSocket.send(eventGameParser.toJson(
-//                EventGame.Ready(true)
-//        ))
-    }
+    fun setUserReady() = listener.SendPlayerReady()
 
 }

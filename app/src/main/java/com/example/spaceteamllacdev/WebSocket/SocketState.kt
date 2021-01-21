@@ -7,4 +7,5 @@ sealed class SocketState {
     data class SocketSuccessful(val Successmessage: String) : SocketState()
     data class Error(val errorMessage: String) :
         SocketState()
+    object Inactive : SocketState()
 }

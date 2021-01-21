@@ -43,7 +43,6 @@ class WaitingRoomFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
         viewModel.isReady.observe(viewLifecycleOwner, Observer { newReady ->
-            EventGame.Ready(true)
             Timber.i("mon eventgame est passé à true")
         })
 
@@ -80,7 +79,7 @@ class WaitingRoomFragment : Fragment() {
     }
 
     fun userIsReady(){
-        viewModel.setUserReady(true)
+        viewModel.setUserReady()
     }
 
 }
