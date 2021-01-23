@@ -5,67 +5,100 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.spaceteamllacdev.GameViewModel
+import com.example.spaceteamllacdev.Models.UserPost
 import com.example.spaceteamllacdev.R
-import kotlinx.android.synthetic.main.fragment_login.view.*
+import com.example.spaceteamllacdev.SpaceDimApplication
+import com.example.spaceteamllacdev.databinding.LoginFragmentBinding
+import com.example.spaceteamllacdev.user.UserViewModel
+import com.example.spaceteamllacdev.user.UserViewModelFactory
+import kotlinx.android.synthetic.main.login_fragment.view.*
 import timber.log.Timber
 
 
 class LoginFragment : Fragment() {
-    private lateinit var viewModel: GameViewModel
+    private lateinit var binding: LoginFragmentBinding
+
+    private val viewModel: UserViewModel by viewModels {
+        UserViewModelFactory(SpaceDimApplication.userRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Timber.i("onCreate Called")
 
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+
+
+
+        binding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.login_fragment,
+                container,
+                false
+        )
+
+        binding.userViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.btnLaunch.setOnClickListener {
+            val username = binding.usernameInput.text.toString()
+
+            viewModel.connectUser(username)
+            Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
+        }
+
+        binding.btnRegister.setOnClickListener {
+            val username = binding.usernameInput.text.toString()
+            val newUser = UserPost(username)
+
+            viewModel.addUser(newUser)
+            Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
+        }
+
+
+
+        return binding.root
     }
 
     override fun onStart() {
         super.onStart()
 
-        Timber.i("Login onStart Called")
+        Timber.i("onStart Called")
     }
 
     override fun onResume() {
         super.onResume()
-        Timber.i("Login onResume Called")
+        Timber.i("onResume Called")
     }
 
     override fun onPause() {
         super.onPause()
-        Timber.i("Login onPause Called")
+        Timber.i("onPause Called")
     }
 
     override fun onStop() {
         super.onStop()
-        Timber.i("Login onStop Called")
+        Timber.i("onStop Called")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.i("Login onDestroy Called")
+        Timber.i("onDestroy Called")
     }
 
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        view.btnLaunch.setOnClickListener {
-            Timber.i("nickname: " + view.editName.text)
-            viewModel.onLaunch()
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
-        }
-
-        return view
-    }
 }
 

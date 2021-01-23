@@ -14,7 +14,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.spaceteamllacdev.Fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/login_fragment" >
         <action
             android:id="@+id/action_loginFragment_to_waitingRoomFragment"
             app:destination="@id/waitingRoomFragment"

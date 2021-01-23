@@ -47,5 +47,4 @@ object PolymorphicAdapter {
 
     val eventGameParser: JsonAdapter<EventGame> = moshiEventSerializer.adapter(EventGame::class.java)
 
-    //val UIElementParser: JsonAdapter<UIElement> = moshiUIelementSerializer.adapter(UIElement::class.java)
 }

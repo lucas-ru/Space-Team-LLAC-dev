@@ -25,9 +25,10 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_game)
+        //println(status)
+        //ws.send(status)
 
-
-        start()
+        //start()
         Timber.i("onCreate Called")
 
     }
@@ -59,7 +60,9 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun start() {
-
+        //val jsonTest = EventStart( type = "READY", value = true)
+        //val jsonTest = EventGame.Ready(true);
+        //var status = jsonAdapter.toJson(jsonTest)
 //        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
 //        val listener = EchoWebSocketListener()
 //        val ws = client.newWebSocket(request, listener)
