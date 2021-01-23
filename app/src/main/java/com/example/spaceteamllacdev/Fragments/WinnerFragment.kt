@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.example.spaceteamllacdev.R
-import kotlinx.android.synthetic.main.fragment_waiting_room.view.*
 import kotlinx.android.synthetic.main.fragment_winner.view.*
 import timber.log.Timber
 

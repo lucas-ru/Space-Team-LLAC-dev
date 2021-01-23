@@ -8,13 +8,18 @@ import com.example.spaceteamllacdev.Models.*
 import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
 import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
 import com.example.spaceteamllacdev.WebSocket.SocketState
+import com.example.spaceteamllacdev.user.UserRepository
 import okhttp3.*
 import okio.IOException
 
 
-class GameViewModel : ViewModel() {
+class GameViewModel(userRepository: UserRepository, webSocket: EchoWebSocketListener) : ViewModel() {
 
     val currentRoomName = MutableLiveData<String>()
+
+    val UserRepo : UserRepository by lazy {
+        userRepository
+    }
 
     private val _isReady = MutableLiveData<Boolean>()
     val isReady: LiveData<Boolean>
@@ -29,7 +34,7 @@ class GameViewModel : ViewModel() {
     private val currentLevel = MutableLiveData<Int>()
     private var userReady = false
 
-//    fun getSocketState(): LiveData<SocketState> = SocketState
+    //    fun getSocketState(): LiveData<SocketState> = SocketState
     fun getCurrentLevel(): LiveData<Int> = currentLevel
 
     val listener = EchoWebSocketListener()
@@ -37,9 +42,14 @@ class GameViewModel : ViewModel() {
 
     init{
         currentLevel.value = 1
+//        userRepository.currentUser.value?.let { listener.OnLaunch(it) }
+    }
+    fun test(){
+        println(UserRepo.currentUser.value)
+        UserRepo.currentUser.value?.let { listener.OnLaunch(it) }
     }
 
-    fun onLaunch() = listener.OnLaunch()
+//    fun onLaunch() = listener.OnLaunch()
 
 
     val getGameState: LiveData<EventGame> = listener.gameState

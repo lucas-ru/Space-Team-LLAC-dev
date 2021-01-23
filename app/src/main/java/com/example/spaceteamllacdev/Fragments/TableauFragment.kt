@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.example.spaceteamllacdev.R
 import kotlinx.android.synthetic.main.fragment_tableau.view.*
-import kotlinx.android.synthetic.main.fragment_waiting_room.view.*
 import timber.log.Timber
 
 

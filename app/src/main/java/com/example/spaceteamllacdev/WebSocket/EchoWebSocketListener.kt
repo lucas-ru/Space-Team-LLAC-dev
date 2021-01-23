@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.spaceteamllacdev.Models.EventGame
 import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
 import com.example.spaceteamllacdev.Models.UIElement
+import com.example.spaceteamllacdev.Models.User
 import okhttp3.*
 import okio.ByteString
 import timber.log.Timber
@@ -44,10 +45,11 @@ class EchoWebSocketListener : WebSocketListener() {
         private const val NORMAL_CLOSURE_STATUS = 4000
     }
 
-    fun OnLaunch(){
+    fun OnLaunch(user: User){
         val client = OkHttpClient()
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/${user.id}").build()
 
+        println(request)
         webSocket = client.newWebSocket(request, this)
         println("On se co oklm")
     }
