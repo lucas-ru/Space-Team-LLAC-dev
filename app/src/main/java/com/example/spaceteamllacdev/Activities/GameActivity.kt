@@ -16,19 +16,14 @@ import timber.log.Timber
 
 class GameActivity : AppCompatActivity() {
 
-    private val client = OkHttpClient()
-    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    //private val jsonAdapter = moshi.adapter(EventGame::class.java)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_game)
-        //println(status)
-        //ws.send(status)
 
-        //start()
         Timber.i("onCreate Called")
 
     }
@@ -59,54 +54,4 @@ class GameActivity : AppCompatActivity() {
         Timber.i("onDestroy Called")
     }
 
-    private fun start() {
-        //val jsonTest = EventStart( type = "READY", value = true)
-        //val jsonTest = EventGame.Ready(true);
-        //var status = jsonAdapter.toJson(jsonTest)
-//        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/1").build()
-//        val listener = EchoWebSocketListener()
-//        val ws = client.newWebSocket(request, listener)
-//
-//
-//        ws.send(eventGameParser.toJson(
-//            EventGame.Ready(true)
-//        ))
-    }
-
-    /*private class EchoWebSocketListener : WebSocketListener() {
-
-        override fun onOpen(webSocket: WebSocket, response: Response) {
-
-            println("Socket open")
-
-            //webSocket.close(NORMAL_CLOSURE_STATUS, "Goodbye !")
-        }
-
-        override fun onMessage(webSocket: WebSocket, text: String) {
-            println("Receiving : $text")
-
-        }
-
-        override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-            println("Receiving bytes : " + bytes.hex())
-        }
-
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            webSocket.close(NORMAL_CLOSURE_STATUS, null)
-            println("Closing : $code / $reason")
-        }
-
-        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-            println("Error : " + t.message)
-        }
-
-        companion object {
-            private const val NORMAL_CLOSURE_STATUS = 4000
-        }
-    }*/
 }
-
-data class EventStart (
-    val type: String,
-    val value: Boolean
-)

@@ -1,9 +1,6 @@
 package com.example.spaceteamllacdev.user
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.spaceteamllacdev.Models.User
 import com.example.spaceteamllacdev.Models.UserPost
 import kotlinx.coroutines.CoroutineScope
@@ -12,13 +9,20 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.lang.Exception
 
+
+
 class UserViewModel(userRepository: UserRepository) : ViewModel() {
 
     val userRepo : UserRepository = userRepository
 
 
-    init {
+    private val _tryConnection = MutableLiveData<Boolean>()
+    val tryConnection : LiveData<Boolean>
+        get() = _tryConnection
 
+
+    init {
+        _tryConnection.value = false
     }
 
     fun connectUser(username: String) {
@@ -32,6 +36,7 @@ class UserViewModel(userRepository: UserRepository) : ViewModel() {
                 }
             }
         }
+        _tryConnection.value = true
     }
 
     fun addUser(userPosted: UserPost) {
@@ -40,12 +45,14 @@ class UserViewModel(userRepository: UserRepository) : ViewModel() {
             userRegister?.let {
                 if (it.isSuccessful) {
                     userRepo.registerUser(it.body())
+
                 } else {
                     throw HttpException(it)
                 }
             }
-
-
         }
+        _tryConnection.value = true
     }
+
+
 }

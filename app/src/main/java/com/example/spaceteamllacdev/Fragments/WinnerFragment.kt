@@ -5,9 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.spaceteamllacdev.GameViewModel
+import com.example.spaceteamllacdev.GameViewModelFactory
 import com.example.spaceteamllacdev.R
-import kotlinx.android.synthetic.main.fragment_winner.view.*
+import com.example.spaceteamllacdev.SpaceDimApplication
+import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
+import com.example.spaceteamllacdev.databinding.WaitingRoomFragmentBinding
+import com.example.spaceteamllacdev.databinding.WinnerFragmentBinding
 import timber.log.Timber
 
 
@@ -18,12 +25,34 @@ import timber.log.Timber
  */
 class WinnerFragment : Fragment() {
 
+    private lateinit var binding: WinnerFragmentBinding
+    private val viewModel: GameViewModel by viewModels {
+        GameViewModelFactory(SpaceDimApplication.userRepository, EchoWebSocketListener())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Timber.i("onCreate Called")
 
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.winner_fragment,
+            container,
+            false
+        )
+
+        binding.gameViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
     override fun onStart() {
@@ -52,14 +81,5 @@ class WinnerFragment : Fragment() {
         Timber.i("onDestroy Called")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_winner, container, false)
 
-        view.button3.setOnClickListener { Navigation.findNavController(view).navigate(R.id.action_winnerFragment_to_looserFragment) }
-
-        return view    }
 }

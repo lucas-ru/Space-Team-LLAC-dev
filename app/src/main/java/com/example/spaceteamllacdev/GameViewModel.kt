@@ -13,17 +13,22 @@ import okhttp3.*
 import okio.IOException
 
 
-class GameViewModel(userRepository: UserRepository, webSocket: EchoWebSocketListener) : ViewModel() {
+class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketListener) : ViewModel() {
 
     val currentRoomName = MutableLiveData<String>()
 
-    val UserRepo : UserRepository by lazy {
-        userRepository
-    }
+    val userRepo : UserRepository = userRepository
 
-    private val _isReady = MutableLiveData<Boolean>()
-    val isReady: LiveData<Boolean>
-        get() = _isReady
+    val getGameState: LiveData<EventGame> = webSocket.gameState
+
+
+//    fun getGameState(): LiveData<EventGame> = webSocket.gameState
+
+//    val webSocket : EchoWebSocketListener = webSocket
+
+    private val _GameState = MutableLiveData<EventType>()
+    val GameState: LiveData<EventType>
+        get() = _GameState
 
     private val uiElementsForLevel = MutableLiveData<List<UIElement>>()
     fun getUIElementsForLevel(): LiveData<List<UIElement>> = uiElementsForLevel
@@ -34,33 +39,22 @@ class GameViewModel(userRepository: UserRepository, webSocket: EchoWebSocketList
     private val currentLevel = MutableLiveData<Int>()
     private var userReady = false
 
-    //    fun getSocketState(): LiveData<SocketState> = SocketState
     fun getCurrentLevel(): LiveData<Int> = currentLevel
 
-    val listener = EchoWebSocketListener()
+//    val listener = EchoWebSocketListener()
 
 
     init{
+        println("zebi")
         currentLevel.value = 1
-//        userRepository.currentUser.value?.let { listener.OnLaunch(it) }
-    }
-    fun test(){
-        println(UserRepo.currentUser.value)
-        UserRepo.currentUser.value?.let { listener.OnLaunch(it) }
     }
 
-//    fun onLaunch() = listener.OnLaunch()
 
 
-    val getGameState: LiveData<EventGame> = listener.gameState
-
-//    private fun updateGameState(eventGame: EventGame) = when(eventGame){
-//        is EventGame.WaitingForPlayer -> {
-//            val action = 1
-//        }
-//    }
+    fun onLaunch() = webSocket.OnLaunch(userRepo.currentUser.value)
 
 
-    fun setUserReady() = listener.SendPlayerReady()
-
+    fun setUserReady() {
+        _GameState.value = EventType.READY
+    }
 }

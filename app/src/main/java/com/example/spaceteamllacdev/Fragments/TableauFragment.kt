@@ -5,9 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.spaceteamllacdev.GameViewModel
+import com.example.spaceteamllacdev.GameViewModelFactory
 import com.example.spaceteamllacdev.R
-import kotlinx.android.synthetic.main.fragment_tableau.view.*
+import com.example.spaceteamllacdev.SpaceDimApplication
+import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
+import com.example.spaceteamllacdev.databinding.TableauFragmentBinding
 import timber.log.Timber
 
 
@@ -18,12 +24,35 @@ import timber.log.Timber
  */
 class TableauFragment : Fragment() {
 
+    private lateinit var binding: TableauFragmentBinding
+    private val viewModel: GameViewModel by viewModels {
+        GameViewModelFactory(SpaceDimApplication.userRepository, EchoWebSocketListener())
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Timber.i("onCreate Called")
 
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.tableau_fragment,
+            container,
+            false
+        )
+
+        binding.gameViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
     override fun onStart() {
@@ -52,16 +81,7 @@ class TableauFragment : Fragment() {
         Timber.i("onDestroy Called")
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_tableau, container, false)
 
-        view.btnEnd.setOnClickListener { Navigation.findNavController(view).navigate(R.id.action_tableauFragment_to_winnerFragment) }
-
-        return view    }
 
 
 }

@@ -40,7 +40,7 @@
         android:id="@+id/tableauFragment"
         android:name="com.example.spaceteamllacdev.Fragments.TableauFragment"
         android:label="fragment_tableau"
-        tools:layout="@layout/fragment_tableau" >
+        tools:layout="@layout/tableau_fragment" >
         <action
             android:id="@+id/action_tableauFragment_to_winnerFragment"
             app:destination="@id/winnerFragment"
@@ -53,7 +53,7 @@
         android:id="@+id/winnerFragment"
         android:name="com.example.spaceteamllacdev.Fragments.WinnerFragment"
         android:label="fragment_winner"
-        tools:layout="@layout/fragment_winner" >
+        tools:layout="@layout/winner_fragment" >
         <action
             android:id="@+id/action_winnerFragment_to_looserFragment"
             app:destination="@id/looserFragment"
@@ -66,7 +66,7 @@
         android:id="@+id/looserFragment"
         android:name="com.example.spaceteamllacdev.Fragments.LooserFragment"
         android:label="fragment_looser"
-        tools:layout="@layout/fragment_looser" >
+        tools:layout="@layout/looser_fragment" >
         <action
             android:id="@+id/action_looserFragment_to_loginFragment"
             app:destination="@id/loginFragment"

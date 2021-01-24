@@ -11,9 +11,7 @@ import okio.ByteString
 import timber.log.Timber
 
 class EchoWebSocketListener : WebSocketListener() {
-    val _gameState = MutableLiveData<EventGame>()
-    val gameState: LiveData<EventGame>
-        get() = _gameState
+    var gameState = MutableLiveData<EventGame>()
     private var webSocket: WebSocket? = null
 
 
@@ -25,7 +23,12 @@ class EchoWebSocketListener : WebSocketListener() {
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        _gameState.postValue(eventGameParser.fromJson(text))
+        when(eventGameParser.fromJson(text)!!::class.java) {
+            EventGame.WaitingForPlayer::class.java -> {
+                val webSocketState = eventGameParser.fromJson(text) as EventGame.WaitingForPlayer
+                updateWebSocketState(webSocketState)
+            }
+        }
     }
 
 //    override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -45,13 +48,12 @@ class EchoWebSocketListener : WebSocketListener() {
         private const val NORMAL_CLOSURE_STATUS = 4000
     }
 
-    fun OnLaunch(user: User){
+    fun OnLaunch(user: User?){
         val client = OkHttpClient()
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/${user.id}").build()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/${user?.id}").build()
 
-        println(request)
         webSocket = client.newWebSocket(request, this)
-        println("On se co oklm")
+        println(webSocket)
     }
 
     fun SendPlayerReady(){
@@ -59,6 +61,12 @@ class EchoWebSocketListener : WebSocketListener() {
         webSocket?.send(eventGameParser.toJson(
                 EventGame.Ready(true)
         ))
+
+        println(webSocket)
+    }
+
+    private fun updateWebSocketState(event: EventGame){
+        gameState.postValue(event)
     }
 
 }

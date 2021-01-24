@@ -6,17 +6,17 @@ import com.example.spaceteamllacdev.Models.User
 
 class UserRepository {
 
-    private val _CurrentUser = MutableLiveData<User>()
+    private val _currentUser = MutableLiveData<User>()
 
     val currentUser: LiveData<User>
-        get() = _CurrentUser
+        get() = _currentUser
 
     fun loginUser(user: User?){
-        _CurrentUser.postValue(user)
+        _currentUser.postValue(user)
     }
 
     fun registerUser(user: User?){
-        _CurrentUser.postValue(user)
+        _currentUser.postValue(user)
     }
 
 }

@@ -39,8 +39,6 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-
-
         binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.login_fragment,
@@ -55,7 +53,10 @@ class LoginFragment : Fragment() {
             val username = binding.usernameInput.text.toString()
 
             viewModel.connectUser(username)
+
+        /*
             Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
+*/
         }
 
         binding.btnRegister.setOnClickListener {
@@ -63,10 +64,19 @@ class LoginFragment : Fragment() {
             val newUser = UserPost(username)
 
             viewModel.addUser(newUser)
+
+/*
             Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
+*/
         }
 
 
+        viewModel.tryConnection.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                //println(viewModel.userRepo.currentUser.value)
+                Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
+            }
+        })
 
         return binding.root
     }
