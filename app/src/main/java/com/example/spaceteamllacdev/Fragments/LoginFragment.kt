@@ -64,10 +64,16 @@ class LoginFragment : Fragment() {
 
             viewModel.addUser(newUser)
 
+
 /*
             Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_waitingRoomFragment)
 */
         }
+
+
+        viewModel.errorConnection.observe(viewLifecycleOwner, Observer {
+            binding.errorTxt.text = it
+        })
 
 
         viewModel.tryConnection.observe(viewLifecycleOwner, Observer {

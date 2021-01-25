@@ -16,6 +16,10 @@ class UserViewModel(userRepository: UserRepository) : ViewModel() {
         get() = _tryConnection
 
 
+    private val _errorConnection = MutableLiveData<String>()
+    val errorConnection : LiveData<String>
+        get() = _errorConnection
+
     init {
         _tryConnection.value = false
     }
@@ -26,12 +30,20 @@ class UserViewModel(userRepository: UserRepository) : ViewModel() {
             userConnect?.let {
                 if (it.isSuccessful) {
                     userRepo.loginUser(it.body())
+                    _tryConnection.value = true
                 } else {
-                    throw HttpException(it)
+                    if (it.code() == 400) {
+                        _errorConnection.value = "Please fill out the field"
+                    }
+                    if (it.code() == 401) {
+                        _errorConnection.value = "User already exists"
+                    }
+                    if (it.code() == 404) {
+                        _errorConnection.value = "User does no exist"
+                    }
                 }
             }
         }
-        _tryConnection.value = true
     }
 
     fun addUser(userPosted: UserPost) {
@@ -40,13 +52,20 @@ class UserViewModel(userRepository: UserRepository) : ViewModel() {
             userRegister?.let {
                 if (it.isSuccessful) {
                     userRepo.registerUser(it.body())
-
+                    _tryConnection.value = true
                 } else {
-                    throw HttpException(it)
+                    if (it.code() == 400) {
+                        _errorConnection.value = "Please fill out the field"
+                    }
+                    if (it.code() == 401) {
+                        _errorConnection.value = "User already exists"
+                    }
+                    if (it.code() == 404) {
+                        _errorConnection.value = "User does no exist"
+                    }
                 }
             }
         }
-        _tryConnection.value = true
     }
 
 

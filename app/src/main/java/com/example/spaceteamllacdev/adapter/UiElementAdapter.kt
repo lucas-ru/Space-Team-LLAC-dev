@@ -1,18 +1,30 @@
 package com.example.spaceteamllacdev.adapter
 
+import android.content.Context
+import android.hardware.SensorManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.ListMenuItemView
+import androidx.compose.ui.viewinterop.viewModel
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spaceteamllacdev.Fragments.TableauFragment
 import com.example.spaceteamllacdev.models.UIElement
 import com.example.spaceteamllacdev.databinding.UiElementCardBinding
+import com.squareup.seismic.ShakeDetector
 import kotlinx.android.synthetic.main.ui_element_card.view.*
 
 class UiElementAdapter(private val onClickListener: OnClickListener) :
+    ShakeDetector.Listener,
     ListAdapter<UIElement,UiElementAdapter.UiElementPropertyViewHolder>(DiffCallback){
+
+    private lateinit var shakeDetector: ShakeDetector
+
+    private lateinit var onShakeListener : OnShakeListener
+
 
     class UiElementPropertyViewHolder(private var binding: UiElementCardBinding):
         RecyclerView.ViewHolder(binding.root) {
@@ -45,6 +57,7 @@ class UiElementAdapter(private val onClickListener: OnClickListener) :
      */
     override fun onBindViewHolder(holder: UiElementPropertyViewHolder, position: Int) {
         val uiElementProperty = getItem(position)
+
         when(uiElementProperty) {
             is UIElement.Button -> {
                 holder.itemView.actionBtn.visibility = View.VISIBLE
@@ -60,22 +73,31 @@ class UiElementAdapter(private val onClickListener: OnClickListener) :
                     onClickListener.onClick(uiElementProperty)
                 }
             }
+            is UIElement.Shake -> {
+                shakeDetector = ShakeDetector(this)
+
+                val sensorManager = holder.itemView.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager?
+                shakeDetector.start(sensorManager)
+
+                 onShakeListener = OnShakeListener {
+                    onShakeListener.onshake(it)
+                }
+            }
         }
-//        println("holderitem " + holder.itemView)
-//        println("uielementProperty " + uiElementProperty)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(uiElementProperty)
-//        }
+
         holder.bind(uiElementProperty)
     }
-
-//    fun getElement(position: Int): UIElement {
-//        val uiElement = getItem(position)
-//        return uiElement
-//    }
 
 
     class OnClickListener(val clickListener: (uiElementProperty:UIElement) -> Unit) {
         fun onClick(uiElementProperty:UIElement) = clickListener(uiElementProperty)
+    }
+
+    class OnShakeListener(val shakeListener: (uiElementProperty:UIElement) -> Unit) {
+        fun onshake(uiElementProperty:UIElement) = shakeListener(uiElementProperty)
+    }
+
+    override fun hearShake() {
+        println(onShakeListener)
     }
 }

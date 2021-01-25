@@ -64,6 +64,9 @@ dependencies {
     //OKHTTP
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
+    //Shake
+    implementation 'com.squareup:seismic:1.0.2'
+
     //Moshi
     def moshi_version = "1.9.2"
     def retrofit_version = "2.6.0"
