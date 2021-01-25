@@ -68,16 +68,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/elementList"
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:layout_marginTop="32dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:listData="@{GameViewModel.UIElementsForLevel}"
-        tools:itemCount="8"
-        tools:listitem="@layout/ui_element_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMission" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMission"
+        app:listData="@{GameViewModel.UIElementsForLevel}"
+        app:spanCount="2"
+        tools:itemCount="8"
+        tools:listitem="@layout/ui_element_card" />
 
     <ProgressBar
         android:id="@+id/progressBarTime"

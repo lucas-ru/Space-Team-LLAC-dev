@@ -58,6 +58,10 @@ class WinnerFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_winnerFragment_to_waitingRoomFragment)
         }
 
+        viewModel.userRepo.currentUser.observe(viewLifecycleOwner, Observer {
+            binding.scoreTxt.text = Html.fromHtml("Your score : <b>${it.score}</b>", Html.FROM_HTML_MODE_COMPACT)
+        })
+
         return binding.root
     }
 

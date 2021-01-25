@@ -8,7 +8,9 @@ import com.example.spaceteamllacdev.models.User
 import okhttp3.*
 
 class EchoWebSocketListener : WebSocketListener() {
+
     var gameState = MutableLiveData<EventGame>()
+
     private var webSocket: WebSocket? = null
 
 

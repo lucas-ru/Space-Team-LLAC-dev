@@ -21,13 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.WaitingRoom" />
-        <activity android:name=".Activities.Tableau" />
-        <activity android:name=".Activities.Looser" />
-        <activity android:name=".Activities.Winner" />
-        <activity android:name=".Activities.MainActivity">
-
-        </activity>
     </application>
 
 </manifest>

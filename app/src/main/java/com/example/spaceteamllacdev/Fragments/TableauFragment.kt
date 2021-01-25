@@ -88,8 +88,9 @@ class TableauFragment : Fragment() {
                     binding.txtGalaxy.text = Html.fromHtml("You are currently traveling in the <b>Galaxy ${it.level}</b>", Html.FROM_HTML_MODE_COMPACT)
                 }
                 is EventGame.GameOver -> {
-                    viewModel.setGameOverValue(it)
-                    println(viewModel.getGameOverValues().value)
+//                    viewModel.setGameOverValue(it)
+//                    println(viewModel.getGameOverValues().value)
+                    viewModel.userRepo.currentUser.value?.score = it.score
                     if (it.win) {
                         Navigation.findNavController(binding.root).navigate(R.id.action_tableauFragment_to_winnerFragment)
                     } else {

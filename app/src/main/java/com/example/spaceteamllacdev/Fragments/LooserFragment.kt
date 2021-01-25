@@ -56,10 +56,13 @@ class LooserFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        viewModel.getGameOverValues().observe(viewLifecycleOwner, Observer {
-            println(it)
+        viewModel.userRepo.currentUser.observe(viewLifecycleOwner, Observer {
             binding.scoreTxt.text = Html.fromHtml("Your score : <b>${it.score}</b>", Html.FROM_HTML_MODE_COMPACT)
         })
+//        viewModel.getGameOverValues().observe(viewLifecycleOwner, Observer {
+//            println(it)
+//            binding.scoreTxt.text = Html.fromHtml("Your score : <b>${it.score}</b>", Html.FROM_HTML_MODE_COMPACT)
+//        })
 
         binding.btnRetry.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_looserFragment_to_waitingRoomFragment)
