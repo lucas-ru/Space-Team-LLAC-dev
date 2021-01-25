@@ -2,7 +2,6 @@ package com.example.spaceteamllacdev.Fragments
 
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +11,14 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.spaceteamllacdev.GameViewModel
 import com.example.spaceteamllacdev.GameViewModelFactory
-import com.example.spaceteamllacdev.Models.EventGame
-import com.example.spaceteamllacdev.Models.EventType
-import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
+import com.example.spaceteamllacdev.models.EventGame
+import com.example.spaceteamllacdev.models.EventType
+import com.example.spaceteamllacdev.models.State
 import com.example.spaceteamllacdev.R
 import com.example.spaceteamllacdev.SpaceDimApplication
-import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
 import com.example.spaceteamllacdev.databinding.WaitingRoomFragmentBinding
 import timber.log.Timber
 
@@ -35,7 +32,7 @@ class WaitingRoomFragment : Fragment() {
 
     private lateinit var binding: WaitingRoomFragmentBinding
     private val viewModel: GameViewModel by viewModels {
-        GameViewModelFactory(SpaceDimApplication.userRepository, EchoWebSocketListener())
+        GameViewModelFactory(SpaceDimApplication.userRepository, SpaceDimApplication.webSocket)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +66,7 @@ class WaitingRoomFragment : Fragment() {
         viewModel.GameState.observe(viewLifecycleOwner, Observer<EventType> {
             when(it) {
                 EventType.READY -> {
+                    println(it)
                     viewModel.webSocket.SendPlayerReady()
                     binding.btnReady.visibility = View.GONE
 //                    viewModel.webSocket.webSocket?.send("{\"type\":\"READY\", \"value\":true}")
@@ -77,8 +75,11 @@ class WaitingRoomFragment : Fragment() {
         })
 
         viewModel.getGameState.observe(viewLifecycleOwner, Observer {
+            binding.btnReady.isEnabled = true
+
             when(it) {
                 is EventGame.WaitingForPlayer -> {
+                    var allUserReady = true
                     binding.layoutPlayer.removeAllViews()
                     it.userList.forEach {
                         val usercard = inflater.inflate(R.layout.user_card,null) as CardView
@@ -87,14 +88,19 @@ class WaitingRoomFragment : Fragment() {
                         usercard.findViewById<TextView>(R.id.userState).text = it.state.toString()
 
                         binding.layoutPlayer.addView(usercard)
-                        println(it.name + " " + it.state)
+
+                        if (it.state == State.WAITING) {
+                            allUserReady = false
+                        }
+                    }
+
+                    if (allUserReady) {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_waitingRoomFragment_to_tableauFragment)
                     }
                 }
             }
         })
 
-        //view.btnReady.setOnClickListener { Navigation.findNavController(view).navigate(R.id.action_waitingRoomFragment_to_tableauFragment) }
-//        view.btnReady.setOnClickListener { userIsReady() }
 
         binding.btnReady.setOnClickListener {
             viewModel.setUserReady()
@@ -127,10 +133,6 @@ class WaitingRoomFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Timber.i("onDestroy Called")
-    }
-
-    fun userIsReady(){
-        viewModel.setUserReady()
     }
 
 }

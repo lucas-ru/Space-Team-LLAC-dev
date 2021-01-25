@@ -1,16 +1,11 @@
 package com.example.spaceteamllacdev
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.spaceteamllacdev.Models.*
-import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
+import com.example.spaceteamllacdev.models.*
 import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
-import com.example.spaceteamllacdev.WebSocket.SocketState
 import com.example.spaceteamllacdev.user.UserRepository
-import okhttp3.*
-import okio.IOException
 
 
 class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketListener) : ViewModel() {
@@ -33,8 +28,8 @@ class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketL
     private val uiElementsForLevel = MutableLiveData<List<UIElement>>()
     fun getUIElementsForLevel(): LiveData<List<UIElement>> = uiElementsForLevel
 
-    private val GameOverValues = MutableLiveData<EventGame.GameOver>()
-    fun getGameOverValues(): LiveData<EventGame.GameOver> = GameOverValues
+    private val gameOverValues = MutableLiveData<EventGame.GameOver>()
+    fun getGameOverValues(): LiveData<EventGame.GameOver> = gameOverValues
 
     private val currentLevel = MutableLiveData<Int>()
     private var userReady = false
@@ -45,7 +40,6 @@ class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketL
 
 
     init{
-        println("zebi")
         currentLevel.value = 1
     }
 
@@ -56,5 +50,17 @@ class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketL
 
     fun setUserReady() {
         _GameState.value = EventType.READY
+    }
+
+    fun setUserUnready() {
+//        _GameState.value = EventType.READY
+    }
+
+    fun setUiElementForLevel(uiElements : List<UIElement>) {
+        uiElementsForLevel.value = uiElements
+    }
+
+    fun setGameOverValue(gameOverVal : EventGame.GameOver) {
+        gameOverValues.value = gameOverVal
     }
 }

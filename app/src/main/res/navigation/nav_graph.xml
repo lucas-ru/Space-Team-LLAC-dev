@@ -27,7 +27,7 @@
         android:id="@+id/waitingRoomFragment"
         android:name="com.example.spaceteamllacdev.Fragments.WaitingRoomFragment"
         android:label="fragment_waiting_room"
-        tools:layout="@layout/fragment_waiting_room" >
+        tools:layout="@layout/waiting_room_fragment" >
         <action
             android:id="@+id/action_waitingRoomFragment_to_tableauFragment"
             app:destination="@id/tableauFragment"
@@ -48,6 +48,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_tableauFragment_to_looserFragment"
+            app:destination="@id/looserFragment" />
     </fragment>
     <fragment
         android:id="@+id/winnerFragment"
@@ -55,8 +58,8 @@
         android:label="fragment_winner"
         tools:layout="@layout/winner_fragment" >
         <action
-            android:id="@+id/action_winnerFragment_to_looserFragment"
-            app:destination="@id/looserFragment"
+            android:id="@+id/action_winnerFragment_to_waitingRoomFragment"
+            app:destination="@id/waitingRoomFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -68,8 +71,8 @@
         android:label="fragment_looser"
         tools:layout="@layout/looser_fragment" >
         <action
-            android:id="@+id/action_looserFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            android:id="@+id/action_looserFragment_to_waitingRoomFragment"
+            app:destination="@id/waitingRoomFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

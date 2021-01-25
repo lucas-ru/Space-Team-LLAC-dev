@@ -1,4 +1,4 @@
-package com.example.spaceteamllacdev.Models
+package com.example.spaceteamllacdev.models
 
 enum class State(val value: Int) {
     WAITING(0), READY(1), IN_GAME(2), OVER(3)

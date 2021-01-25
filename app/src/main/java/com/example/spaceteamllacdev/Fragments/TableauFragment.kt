@@ -1,18 +1,25 @@
 package com.example.spaceteamllacdev.Fragments
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceteamllacdev.GameViewModel
 import com.example.spaceteamllacdev.GameViewModelFactory
+import com.example.spaceteamllacdev.models.EventGame
 import com.example.spaceteamllacdev.R
 import com.example.spaceteamllacdev.SpaceDimApplication
-import com.example.spaceteamllacdev.WebSocket.EchoWebSocketListener
+import com.example.spaceteamllacdev.adapter.UiElementAdapter
 import com.example.spaceteamllacdev.databinding.TableauFragmentBinding
 import timber.log.Timber
 
@@ -26,7 +33,7 @@ class TableauFragment : Fragment() {
 
     private lateinit var binding: TableauFragmentBinding
     private val viewModel: GameViewModel by viewModels {
-        GameViewModelFactory(SpaceDimApplication.userRepository, EchoWebSocketListener())
+        GameViewModelFactory(SpaceDimApplication.userRepository, SpaceDimApplication.webSocket)
     }
 
 
@@ -42,6 +49,9 @@ class TableauFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val manager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+
+
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.tableau_fragment,
@@ -51,6 +61,50 @@ class TableauFragment : Fragment() {
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.elementList.adapter = UiElementAdapter(UiElementAdapter.OnClickListener {
+            viewModel.webSocket.SendPlayerAction(it)
+        })
+
+        viewModel.getGameState.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is EventGame.GameStarted -> {
+                    viewModel.setUiElementForLevel(it.uiElementList)
+
+                    binding.txtGalaxy.text = Html.fromHtml("You are currently traveling in the <b>Galaxy 1</b>", Html.FROM_HTML_MODE_COMPACT)
+                    binding.progressBarTime.visibility = View.VISIBLE
+
+                }
+                is EventGame.NextAction -> {
+                    binding.progressBarTime.setProgress(0,false)
+                    ObjectAnimator.ofInt(binding.progressBarTime,"progress",100)
+                        .setDuration(it.action.time)
+                        .start()
+                    binding.txtMission.text = it.action.sentence
+                }
+                is EventGame.NextLevel -> {
+                    viewModel.setUiElementForLevel(it.uiElementList)
+
+                    binding.txtGalaxy.text = Html.fromHtml("You are currently traveling in the <b>Galaxy ${it.level}</b>", Html.FROM_HTML_MODE_COMPACT)
+                }
+                is EventGame.GameOver -> {
+                    viewModel.setGameOverValue(it)
+                    println(viewModel.getGameOverValues().value)
+                    if (it.win) {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_tableauFragment_to_winnerFragment)
+                    } else {
+                        Navigation.findNavController(binding.root).navigate(R.id.action_tableauFragment_to_looserFragment)
+                    }
+                }
+            }
+        })
+
+        viewModel.getUIElementsForLevel().observe(viewLifecycleOwner, Observer {
+            it.forEach {
+                println(it)
+
+            }
+        })
 
         return binding.root
     }

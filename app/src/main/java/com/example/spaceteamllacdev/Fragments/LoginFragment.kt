@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.spaceteamllacdev.Models.UserPost
+import com.example.spaceteamllacdev.models.UserPost
 import com.example.spaceteamllacdev.R
 import com.example.spaceteamllacdev.SpaceDimApplication
 import com.example.spaceteamllacdev.databinding.LoginFragmentBinding

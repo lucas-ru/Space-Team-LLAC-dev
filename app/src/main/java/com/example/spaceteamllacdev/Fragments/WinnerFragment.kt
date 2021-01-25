@@ -1,12 +1,14 @@
 package com.example.spaceteamllacdev.Fragments
 
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.spaceteamllacdev.GameViewModel
 import com.example.spaceteamllacdev.GameViewModelFactory
@@ -27,7 +29,7 @@ class WinnerFragment : Fragment() {
 
     private lateinit var binding: WinnerFragmentBinding
     private val viewModel: GameViewModel by viewModels {
-        GameViewModelFactory(SpaceDimApplication.userRepository, EchoWebSocketListener())
+        GameViewModelFactory(SpaceDimApplication.userRepository, SpaceDimApplication.webSocket)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,11 +54,16 @@ class WinnerFragment : Fragment() {
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.btnRetry.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_winnerFragment_to_waitingRoomFragment)
+        }
+
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
+
 
         Timber.i("onStart Called")
     }

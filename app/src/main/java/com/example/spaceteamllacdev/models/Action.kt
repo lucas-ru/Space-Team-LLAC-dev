@@ -1,4 +1,4 @@
-package com.example.spaceteamllacdev.Models
+package com.example.spaceteamllacdev.models
 
 data class Action(
         val sentence: String,

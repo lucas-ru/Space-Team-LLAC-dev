@@ -1,14 +1,9 @@
 package com.example.spaceteamllacdev.user
 
 import androidx.lifecycle.*
-import com.example.spaceteamllacdev.Models.User
-import com.example.spaceteamllacdev.Models.UserPost
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.spaceteamllacdev.models.UserPost
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.lang.Exception
-
 
 
 class UserViewModel(userRepository: UserRepository) : ViewModel() {

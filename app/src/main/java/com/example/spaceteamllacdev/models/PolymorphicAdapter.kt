@@ -1,4 +1,4 @@
-package com.example.spaceteamllacdev.Models
+package com.example.spaceteamllacdev.models
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

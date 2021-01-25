@@ -1,12 +1,14 @@
 package com.example.spaceteamllacdev.Fragments
 
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.spaceteamllacdev.GameViewModel
 import com.example.spaceteamllacdev.GameViewModelFactory
@@ -27,7 +29,7 @@ class LooserFragment : Fragment() {
 
     private lateinit var binding: LooserFragmentBinding
     private val viewModel: GameViewModel by viewModels {
-        GameViewModelFactory(SpaceDimApplication.userRepository, EchoWebSocketListener())
+        GameViewModelFactory(SpaceDimApplication.userRepository, SpaceDimApplication.webSocket)
     }
 
 
@@ -52,6 +54,16 @@ class LooserFragment : Fragment() {
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+
+        viewModel.getGameOverValues().observe(viewLifecycleOwner, Observer {
+            println(it)
+            binding.scoreTxt.text = Html.fromHtml("Your score : <b>${it.score}</b>", Html.FROM_HTML_MODE_COMPACT)
+        })
+
+        binding.btnRetry.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_looserFragment_to_waitingRoomFragment)
+        }
 
         return binding.root
     }

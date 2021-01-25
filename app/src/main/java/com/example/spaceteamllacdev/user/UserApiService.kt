@@ -1,11 +1,9 @@
 package com.example.spaceteamllacdev.user
 
-import com.example.spaceteamllacdev.Models.User
-import com.example.spaceteamllacdev.Models.UserPost
+import com.example.spaceteamllacdev.models.User
+import com.example.spaceteamllacdev.models.UserPost
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.OkHttpClient
-import retrofit2.Call
 
 import retrofit2.Response
 import retrofit2.Retrofit

@@ -2,7 +2,7 @@ package com.example.spaceteamllacdev.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.spaceteamllacdev.Models.User
+import com.example.spaceteamllacdev.models.User
 
 class UserRepository {
 

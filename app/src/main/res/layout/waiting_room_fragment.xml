@@ -109,11 +109,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/custom_button_ripple"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/ready"
         android:textColor="@color/white"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnUnready"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_ripple"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/unready"
+        android:textColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

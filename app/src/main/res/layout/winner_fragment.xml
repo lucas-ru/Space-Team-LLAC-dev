@@ -67,7 +67,7 @@
         />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/scoreTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -80,12 +80,12 @@
         />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnRetry"
         android:layout_width="114dp"
         android:layout_height="54dp"
         android:layout_marginBottom="15dp"
         android:background="@color/colorPrimary"
-        android:text="RETRY"
+        android:text="@string/retry"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/button5"
@@ -99,7 +99,7 @@
         android:layout_height="54dp"
         android:layout_marginBottom="80dp"
         android:background="@color/colorPrimary"
-        android:text="HIGH SCORE"
+        android:text="@string/high_score"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

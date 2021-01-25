@@ -1,14 +1,11 @@
 package com.example.spaceteamllacdev.WebSocket
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.spaceteamllacdev.Models.EventGame
-import com.example.spaceteamllacdev.Models.PolymorphicAdapter.eventGameParser
-import com.example.spaceteamllacdev.Models.UIElement
-import com.example.spaceteamllacdev.Models.User
+import com.example.spaceteamllacdev.models.EventGame
+import com.example.spaceteamllacdev.models.PolymorphicAdapter.eventGameParser
+import com.example.spaceteamllacdev.models.UIElement
+import com.example.spaceteamllacdev.models.User
 import okhttp3.*
-import okio.ByteString
-import timber.log.Timber
 
 class EchoWebSocketListener : WebSocketListener() {
     var gameState = MutableLiveData<EventGame>()
@@ -26,6 +23,22 @@ class EchoWebSocketListener : WebSocketListener() {
         when(eventGameParser.fromJson(text)!!::class.java) {
             EventGame.WaitingForPlayer::class.java -> {
                 val webSocketState = eventGameParser.fromJson(text) as EventGame.WaitingForPlayer
+                updateWebSocketState(webSocketState)
+            }
+            EventGame.GameOver::class.java -> {
+                val webSocketState = eventGameParser.fromJson(text) as EventGame.GameOver
+                updateWebSocketState(webSocketState)
+            }
+            EventGame.GameStarted::class.java -> {
+                val webSocketState = eventGameParser.fromJson(text) as EventGame.GameStarted
+                updateWebSocketState(webSocketState)
+            }
+            EventGame.NextAction::class.java -> {
+                val webSocketState = eventGameParser.fromJson(text) as EventGame.NextAction
+                updateWebSocketState(webSocketState)
+            }
+            EventGame.NextLevel::class.java -> {
+                val webSocketState = eventGameParser.fromJson(text) as EventGame.NextLevel
                 updateWebSocketState(webSocketState)
             }
         }
@@ -57,15 +70,25 @@ class EchoWebSocketListener : WebSocketListener() {
     }
 
     fun SendPlayerReady(){
-        println("Mtn on est pret NORMALEMENT")
         webSocket?.send(eventGameParser.toJson(
                 EventGame.Ready(true)
         ))
+    }
 
-        println(webSocket)
+    fun SendPlayerUnready(){
+        webSocket?.send(eventGameParser.toJson(
+            EventGame.Ready(false)
+        ))
+    }
+
+    fun SendPlayerAction(uiElement: UIElement){
+        webSocket?.send(eventGameParser.toJson(
+            EventGame.PlayerAction(uiElement)
+        ))
     }
 
     private fun updateWebSocketState(event: EventGame){
+        println(event)
         gameState.postValue(event)
     }
 
