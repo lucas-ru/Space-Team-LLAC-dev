@@ -35,6 +35,7 @@ class WaitingRoomFragment : Fragment() {
         GameViewModelFactory(SpaceDimApplication.userRepository, SpaceDimApplication.webSocket)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,10 +58,13 @@ class WaitingRoomFragment : Fragment() {
 
 
         viewModel.userRepo.currentUser.observe(viewLifecycleOwner, Observer {
-            viewModel.onLaunch()
             binding.socketUnconnect.visibility = View.GONE
             binding.socketConnect.visibility = View.VISIBLE
             binding.labelRoom.text = Html.fromHtml("Room : <b>LLAC</b>  Username : <b>${viewModel.userRepo.currentUser.value?.name}</b>",Html.FROM_HTML_MODE_COMPACT)
+        })
+
+        viewModel.name.observe(viewLifecycleOwner, Observer {
+            viewModel.onLaunch()
         })
 
         viewModel.GameState.observe(viewLifecycleOwner, Observer<EventType> {
@@ -73,6 +77,14 @@ class WaitingRoomFragment : Fragment() {
                 }
             }
         })
+
+        binding.buttonJoinRoom.setOnClickListener {
+            val roomname = binding.nameRoom.text.toString()
+            viewModel.givename(roomname)
+            showpopUp()
+        }
+
+
 
         viewModel.getGameState.observe(viewLifecycleOwner, Observer {
             binding.btnReady.isEnabled = true
@@ -133,6 +145,12 @@ class WaitingRoomFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Timber.i("onDestroy Called")
+    }
+
+    private fun showpopUp() {
+        binding.nameRoom.visibility = View.GONE
+        binding.buttonJoinRoom.visibility = View.GONE
+        binding.btnReady.visibility = View.VISIBLE
     }
 
 }

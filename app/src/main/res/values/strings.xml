@@ -18,4 +18,5 @@
     <string name="unready">UNREADY</string>
     <string name="retry">RETRY</string>
     <string name="high_score">HIGH SCORE</string>
+    <string name="waitingRoom_btn_join">Join Room</string>
 </resources>

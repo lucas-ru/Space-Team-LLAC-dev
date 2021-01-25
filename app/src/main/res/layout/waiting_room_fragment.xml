@@ -102,6 +102,16 @@
             android:layout_weight="0"
             android:text="@string/socket"
             android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/name_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="@string/votre_nom_d_utilisateur"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonJoinRoom" />
     </LinearLayout>
 
     <Button
@@ -115,6 +125,7 @@
         android:text="@string/ready"
         android:textColor="@color/white"
         android:enabled="false"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -132,6 +143,20 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonJoinRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/custom_button_ripple"
+        android:visibility="visible"
+        android:text="@string/waitingRoom_btn_join"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

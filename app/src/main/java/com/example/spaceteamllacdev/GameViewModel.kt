@@ -31,6 +31,10 @@ class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketL
     private val gameOverValues = MutableLiveData<EventGame.GameOver>()
     fun getGameOverValues(): LiveData<EventGame.GameOver> = gameOverValues
 
+    private val _Name = MutableLiveData<String>()
+    val name: LiveData<String>
+        get() = _Name
+
     private val currentLevel = MutableLiveData<Int>()
     private var userReady = false
 
@@ -45,7 +49,7 @@ class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketL
 
 
 
-    fun onLaunch() = webSocket.OnLaunch(userRepo.currentUser.value)
+    fun onLaunch() = webSocket.OnLaunch(name.value, userRepo.currentUser.value)
 
 
     fun setUserReady() {
@@ -62,5 +66,10 @@ class GameViewModel(userRepository: UserRepository,val webSocket: EchoWebSocketL
 
     fun setGameOverValue(gameOverVal : EventGame.GameOver) {
         gameOverValues.value = gameOverVal
+    }
+
+    fun givename(nameroom: String) {
+        _Name.value = nameroom
+        println(name.value)
     }
 }

@@ -63,10 +63,11 @@ class EchoWebSocketListener : WebSocketListener() {
         private const val NORMAL_CLOSURE_STATUS = 4000
     }
 
-    fun OnLaunch(user: User?){
-        val client = OkHttpClient()
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/TESTLLAC/${user?.id}").build()
+    fun OnLaunch(name: String?, user: User?){
 
+        val client = OkHttpClient()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/${name}/${user?.id}").build()
+        println(request)
         webSocket = client.newWebSocket(request, this)
         println(webSocket)
     }
